@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/categories_screen.dart';
+import 'package:meals_app/category_meals_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Meals App',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          color: Colors.pink,
+        ),
         primarySwatch: Colors.pink,
         canvasColor: const Color.fromRGBO(255, 254, 229, 1),
         fontFamily: 'Raleway',
@@ -28,11 +32,17 @@ class MyApp extends StatelessWidget {
                 color: Color.fromRGBO(20, 51, 51, 1),
               ),
               //title
-              titleLarge:
-                  const TextStyle(fontSize: 20, fontFamily: 'RobotoCondensed',fontWeight: FontWeight.bold),
+              titleLarge: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'RobotoCondensed',
+                  fontWeight: FontWeight.bold),
             ),
       ),
       home: const CategoriesScreen(),
+      routes: {
+        // '/': (context) => const CategoriesScreen(),
+        '/category-meals': (context) => const CategoryMealsScreen(),
+      },
     );
   }
 }
