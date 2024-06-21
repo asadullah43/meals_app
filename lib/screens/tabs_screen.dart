@@ -10,36 +10,44 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Map<String, Object>> _pages = [
+    {'page': const CategoriesScreen(), 'title': 'Categories'},
+    {'page': const FavoritesScreen(), 'title': 'Favorites'},
+  ];
+  int _selectedPageIndex = 0;
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      // initialIndex: 0,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Meals'),
-          bottom: const TabBar(tabs: [
-            Tab(
-              icon: Icon(
-                Icons.category,
-              ),
-              text: 'Category',
-            ),
-            Tab(
-              icon: Icon(
-                Icons.favorite,
-              ),
-              text: 'Favorites',
-            ),
-          ]),
-        ),
-        body: const TabBarView(
-          children: [
-            CategoriesScreen(),
-            FavoritesScreen(),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title:  Text(_pages[_selectedPageIndex]['title'] as String),
+      ),
+      body: _pages[_selectedPageIndex]['page'] as Widget,
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.amberAccent,
+        currentIndex: _selectedPageIndex,
+        type: BottomNavigationBarType.shifting,
+        onTap: _selectPage,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            label: 'Categories',
+            icon: const Icon(Icons.category),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: const Icon(Icons.favorite),
+            label: 'Favorite',
+          ),
+        ],
       ),
     );
   }
